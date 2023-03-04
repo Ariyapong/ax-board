@@ -1,0 +1,13 @@
+// $primary-color: #64ff00;
+$primary-color: #0a6ee1;
+$black: #3f434a;
+$gray: #8a9099;
+$green: #22ab67;
+$white: #ffffff;
+
+:export {
+  primaryColor: $primary-color;
+  black: $black;
+  gray: $gray;
+  green: $green;
+}

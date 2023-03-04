@@ -1,11 +1,30 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import React, { useState } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/assets/styles/dashboard.module.scss";
 
-const inter = Inter({ subsets: ['latin'] })
+import variables from "@/assets/styles/_variables.module.scss";
+
+import { Layout, Menu, theme, Row, Col, Avatar, Select } from "antd";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+
+const inter = Inter({ subsets: ["latin"] });
+
+const { Header, Sider, Content } = Layout;
 
 export default function Home() {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
   return (
     <>
       <Head>
@@ -14,110 +33,116 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
+      <main>
+        {/* <Header
+          className={styles.dashboard}
+          style={{ padding: 0, background: "#074E9F", height: "65px" }}
+        >
+          <Row>
+            <Col span={12} className="px-4">
+              <Row justify="start" align="middle">
+                <Col span={2}>
+                  {React.createElement(
+                    collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                    {
+                      className: styles.trigger,
+                      onClick: () => setCollapsed(!collapsed),
+                    }
+                  )}
+                </Col>
+                <Col span={2}>
+                  <div className={styles.xflex}>
+                    <Image
+                      priority
+                      src="/images/Logo.svg"
+                      height={40}
+                      width={40}
+                      alt="Follow us on Twitter"
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </Col>
+            <Col span={12} className="px-4">
+              <Row justify="end" align="middle" className="h-full">
+                <Col span={24}>
+                  <Row justify="end" align="middle" className={`w-full`}>
+                    <Col span={4} className={styles.fixHeight}>
+                      <Row justify="end">
+                        <Col>action</Col>
+                      </Row>
+                    </Col>
+                    <Col span={1} className={`px-6 justify-items-center" ${styles.fixHeight}`}>
+                      <div className={styles.separator}></div>
+                    </Col>
+                    <Col span={6} className={styles.fixHeight}>
+                      <div className={styles.userProfile}>
+                        <Avatar src="/images/user.png" alt="user" />
+                        <Select
+                          className="grow"
+                          defaultValue="Art Template"
+                          bordered={false}
+                          options={[
+                            { value: "jack", label: "Jack" },
+                            { value: "lucy", label: "Lucy" },
+                            { value: "Yiminghe", label: "yiminghe" },
+                          ]}
+                        />
+                      </div>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Header>
+        <Layout className={styles.myLayout}>
+          <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
+            <Menu
+              theme="light"
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              items={[
+                {
+                  key: "1",
+                  icon: <UserOutlined />,
+                  label: "nav 1",
+                },
+                {
+                  key: "2",
+                  icon: <VideoCameraOutlined />,
+                  label: "nav 2",
+                },
+                {
+                  key: "3",
+                  icon: <UploadOutlined />,
+                  label: "nav 3",
+                },
+              ]}
             />
-          </div>
-        </div>
+          </Sider>
+          <Layout className="site-layout">
+            <Content
+              style={{
+                margin: "24px 16px",
+                padding: 24,
+                minHeight: 280,
+                background: colorBgContainer,
+              }}
+            >
+              <span className="text-red-600 font-bold">Content</span>
+            </Content>
+          </Layout>
+        </Layout> */}
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+        test layout
       </main>
+
+      <style jsx>{`
+        .bg-1 {
+          background-color: yellow;
+        }
+      `}</style>
     </>
-  )
+  );
 }
