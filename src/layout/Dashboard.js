@@ -24,7 +24,7 @@ export default function Dashboard(props) {
   } = theme.useToken();
 
   return (
-    <>
+    <main>
       <Header
         className={styles.dashboard}
         style={{ padding: 0, background: "#074E9F", height: "65px" }}
@@ -131,6 +131,6 @@ export default function Dashboard(props) {
           </Content>
         </Layout>
       </Layout>
-    </>
+    </main>
   );
 }
