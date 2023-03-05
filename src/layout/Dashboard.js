@@ -120,10 +120,11 @@ export default function Dashboard(props) {
         <Layout className="site-layout">
           <Content
             style={{
-              margin: "24px 16px",
-              padding: 24,
+            //   margin: "24px 16px",
+              margin: "2rem",
+            //   padding: 24,
               minHeight: 280,
-              background: colorBgContainer,
+            //   background: colorBgContainer,
             }}
           >
             {/* <span className="text-red-600 font-bold">Content</span> */}

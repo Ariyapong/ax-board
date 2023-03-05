@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/assets/styles/dashboard.module.scss";
-
 import variables from "@/assets/styles/_variables.module.scss";
-
 import { Layout, Menu, theme, Row, Col, Avatar, Select } from "antd";
 import {
   MenuFoldOutlined,
@@ -15,15 +13,161 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 
+import dynamic from "next/dynamic";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+
 const inter = Inter({ subsets: ["latin"] });
 
 const { Header, Sider, Content } = Layout;
+
+/* let ctx = null;
+if (typeof window !== "undefined") {
+  ctx = document.getElementById("myChart");
+} */
+
+// data for the sparklines that appear below header area
+const sparklineData = [24, 35, 37, 50, 31, 36, 20, 33, 40];
+
+const chartOption = {
+  chart: {
+    id: "sparkline",
+    // group: "sparklines",
+    type: "area",
+    width: "70%",
+    height: 160,
+    sparkline: {
+      enabled: true,
+    },
+  },
+  stroke: {
+    curve: "smooth",
+  },
+  fill: {
+    // opacity: 1,
+    type: "gradient",
+    gradient: {
+      shade: "light",
+      type: "vertical",
+      shadeIntensity: 0,
+      opacityFrom: 0.4,
+      opacityTo: 0,
+    },
+    // type: "solid",
+    // colors: ["transparent"],
+  },
+  labels: [...Array(8).keys()].map((n) => `2018-09-0${n + 1}`),
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    min: 0,
+    max: 70,
+  },
+  colors: ["#008FFB"],
+};
+const chartOption2 = {
+  chart: {
+    id: "sparkline2",
+    // group: "sparklines",
+    type: "area",
+    width: "70%",
+    height: 160,
+    sparkline: {
+      enabled: true,
+    },
+  },
+  stroke: {
+    curve: "smooth",
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "light",
+      type: "vertical",
+      shadeIntensity: 0,
+      opacityFrom: 0.4,
+      opacityTo: 0,
+    },
+  },
+  labels: [...Array(8).keys()].map((n) => `2018-09-0${n + 1}`),
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    min: 0,
+    max: 70,
+  },
+  colors: ["#22AB67"],
+};
+const chartOption3 = {
+  chart: {
+    id: "sparkline3",
+    // group: "sparklines",
+    type: "area",
+    width: "70%",
+    height: 160,
+    sparkline: {
+      enabled: true,
+    },
+  },
+  stroke: {
+    curve: "smooth",
+  },
+  fill: {
+    type: "gradient",
+    gradient: {
+      shade: "light",
+      type: "vertical",
+      shadeIntensity: 0,
+      opacityFrom: 0.4,
+      opacityTo: 0,
+    },
+  },
+  labels: [...Array(8).keys()].map((n) => `2018-09-0${n + 1}`),
+  xaxis: {
+    type: "datetime",
+  },
+  yaxis: {
+    min: 0,
+    max: 70,
+  },
+  colors: ["#F8BD26"],
+};
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const [barData, setBarData] = useState([
+    {
+      name: "Profits",
+      // data: randomizeArray(sparklineData),
+      data: sparklineData,
+    },
+  ]);
+
+  useEffect(() => {}, []);
+
+  function randomizeArray(arg) {
+    const array = arg.slice();
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
 
   return (
     <>
@@ -33,13 +177,136 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>test layout</div>
+      <div className="dashboard">
+        {/* test layout */}
+        <div className="container">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-12 gap-2">
+              <div className="col-span-12">
+                <div className="py-4">
+                  <div className="grid grid-cols-12 gap-2">
+                    <div className="col-span-9">Overview</div>
+                    <div className="col-span-3">action and filter</div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-12">
+                <div className={`p-3 ${styles.bRound} bg-white`}>
+                  <div
+                    className={`grid grid-cols-12 gap-2 ${styles.chartLine}`}
+                  >
+                    <div className="col-span-4 bg-white">
+                      <div className="grid grid-cols-12 gap-1 px-2">
+                        <div className="col-span-8 text-base">
+                          <div className="">Total Income</div>
+                          <div className="pt-1">
+                            <span className="text-2rem">$8.500</span>
+                            <span className="inline-flex items-center pl-2">
+                              {" "}
+                              <Image
+                                priority
+                                src="/images/Arrow.svg"
+                                height={15}
+                                width={15}
+                                alt="Follow us on Twitter"
+                              />{" "}
+                              <span>50.8%</span>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="col-span-4">
+                          <Chart
+                            options={chartOption}
+                            series={barData}
+                            type="area"
+                            // width="500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-4 bg-white">
+                      <div className="grid grid-cols-12 gap-1 px-2">
+                        <div className="col-span-8 text-base">
+                          <div className="">Total Expense</div>
+                          <div className="pt-1">
+                            <span className="text-2rem">3.500K</span>
+                            <span className="inline-flex items-center pl-2">
+                              {" "}
+                              <Image
+                                priority
+                                src="/images/Arrow.svg"
+                                height={15}
+                                width={15}
+                                alt="Follow us on Twitter"
+                              />{" "}
+                              <span>10.5%</span>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="col-span-4">
+                          <Chart
+                            options={chartOption2}
+                            series={barData}
+                            type="area"
+                            // width="500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-span-4 bg-white">
+                      <div className="grid grid-cols-12 gap-1 px-2">
+                        <div className="col-span-8 text-base">
+                          <div className="">Total Bonus</div>
+                          <div className="pt-1">
+                            <span className="text-2rem">5.100K</span>
+                            <span className="inline-flex items-center pl-2">
+                              {" "}
+                              <Image
+                                priority
+                                src="/images/Arrow.svg"
+                                height={15}
+                                width={15}
+                                alt="Follow us on Twitter"
+                              />{" "}
+                              <span>24.9%</span>
+                            </span>
+                          </div>
+                        </div>
+                        <div className="col-span-4">
+                          <Chart
+                            options={chartOption3}
+                            series={barData}
+                            type="area"
+                            // width="500"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-12">
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-7">bar chart</div>
+                  <div className="col-span-5">bar chart</div>
+                </div>
+              </div>
+              <div className="col-span-12">
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-7">credit card</div>
+                  <div className="col-span-5">Transection</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         .bg-1 {
           background-color: yellow;
         }
-      `}</style>
+      `}</style> */}
     </>
   );
 }
