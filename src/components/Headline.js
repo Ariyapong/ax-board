@@ -3,7 +3,7 @@ import React from "react";
 export default function Headline(props) {
   return (
     <div className="grid grid-cols-12 gap-2 pb-4 items-center">
-      <div className="col-span-8 text-2xl">{props.title || "Section"}</div>
+      <div className="col-span-8 text-2rem">{props.title || "Section"}</div>
       <div className="col-span-4 justify-self-end">
         {/* <Dropdown
           loading={loadings[1]}

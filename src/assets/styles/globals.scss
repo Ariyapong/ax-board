@@ -59,6 +59,10 @@ a {
   border-radius: 14px;
 }
 
+/* .card-round {
+  border-radius: 20px;
+} */
+
 .body-ligth {
   color: $body-light;
 }
@@ -73,4 +77,19 @@ a {
 }
 .ax-text-black {
   color: $black;
+}
+.ax-text-gray {
+  color: $gray;
+}
+
+.tb-action {
+  opacity: 0.08;
+  background-color: #20a144;
+
+  & ~ .Available {
+    color: #07a721;
+  }
+  & ~ .Disabled {
+    color: #d92d20;
+  }
 }

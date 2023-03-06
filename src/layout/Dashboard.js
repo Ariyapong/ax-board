@@ -176,7 +176,7 @@ export default function Dashboard(props) {
                   <Button
                     type="text"
                     shape="circle"
-                    icon={<Search aria-label="search icon" />}
+                    icon={<Search className="text-white" aria-label="search icon" />}
                   />
                   <Button
                     type="text"
@@ -191,7 +191,7 @@ export default function Dashboard(props) {
                       style={{ width: "45px", height: "45px" }}
                     />
                     <Select
-                      className="grow"
+                      className="grow header-ddl"
                       defaultValue="Art Template"
                       // style={{ width: '100%' }}
                       bordered={false}

@@ -1,18 +1,31 @@
 import styles from "./product.module.scss";
 import React, { useState, useEffect } from "react";
-import { DatePicker } from "antd";
 import Head from "next/head";
 import Image from "next/image";
-
+import dynamic from "next/dynamic";
 import Headline from "@/components/Headline";
 import Separator from "@/components/Separator";
 import Unread from "@/components/Unread";
 
-import { Tabs, Menu, Avatar, Select, Button, Dropdown } from "antd";
+import {
+  Tabs,
+  Table,
+  Space,
+  Menu,
+  Avatar,
+  Select,
+  Button,
+  Dropdown,
+} from "antd";
 import Plus from "../../../public/images/plus.svg";
 import Export from "../../../public/images/export.svg";
 import Grid from "@/assets/images/grid.svg";
-import Hamburger from "@/assets/images/menu.svg";
+import Hamburger from "@/assets/images/hamburger.svg";
+
+const ProductTable = dynamic(() => import("@/components/Table"), {
+  ssr: false,
+  loading: () => "Loading...",
+});
 
 export default function Product() {
   const [loadings, setLoadings] = useState([]);
@@ -38,8 +51,6 @@ export default function Product() {
       });
     }, 6000);
   }
-
-  // function table
 
   return (
     <>
@@ -89,7 +100,7 @@ export default function Product() {
                       </span>
                     ),
                     key: "1",
-                    children: "Tab 1",
+                    children: <ProductTable />,
                   },
                   {
                     label: (
@@ -118,10 +129,13 @@ export default function Product() {
                   <div className="flex gap-2 justify-end">
                     <Button
                       type="text"
-                      icon={<Grid width={18} height={18} viewBox="0 0 18 18" />}
+                      icon={<Hamburger className="primary" />}
                     ></Button>
                     <Separator styles={{ margin: "2px 0", width: "2px" }} />
-                    <Button type="text" icon={<Hamburger />}></Button>
+                    <Button
+                      type="text"
+                      icon={<Grid width={18} height={18} viewBox="0 0 18 18" />}
+                    ></Button>
                   </div>
                 }
               />

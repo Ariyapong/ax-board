@@ -3,9 +3,9 @@
 .notiLabel {
   width: 100%;
   // height: 17px;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: $primary;
-  padding: 5px;
+  padding: 5px 8px;
 
   &.disabled {
     background-color: $disabled;

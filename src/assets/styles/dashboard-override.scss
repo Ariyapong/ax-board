@@ -1,12 +1,16 @@
-.ant-select-selector {
-  color: #fff !important;
-  background-color: red;
+.header-ddl {
+  .ant-select-selector {
+    color: #fff !important;
+    // color: currentColor;
+    background-color: red;
+  }
+  .ant-select .ant-select-arrow {
+    color: #fff;
+  }
 }
-.ant-select .ant-select-arrow {
-  color: #fff;
-}
+
 .ant-select-single.ant-select-open .ant-select-selection-item {
-  color: #fff;
+  color: currentColor;
 }
 
 .ant-btn {
@@ -20,6 +24,38 @@
 //tabs
 .ant-tabs-nav {
   margin: 0 0 2rem 0 !important;
+}
+
+//table
+.product-table {
+  // border-radius: 8px;
+  border-radius: 20px;
+  .ant-pagination {
+    align-items: center;
+  }
+  .ant-table-wrapper .ant-table-pagination.ant-pagination {
+    margin: 16px;
+  }
+  .ant-pagination-options {
+    position: absolute;
+    left: 0;
+    .ant-select-selector {
+      display: flex;
+      align-items: center;
+      height: 40px;
+      border-radius: 14px;
+    }
+  }
+  .ant-pagination-total-text {
+    position: absolute;
+    left: 140px;
+  }
+  .ant-table-wrapper .ant-table-thead > tr > th {
+    background-color: #fff;
+  }
+  .ant-table-cell::before {
+    content: unset!important;
+  }
 }
 
 /* .bar-chart {

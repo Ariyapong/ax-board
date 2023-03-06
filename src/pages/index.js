@@ -332,35 +332,30 @@ export default function Home() {
         <div className="container mx-auto">
           <div className="grid grid-cols-12 gap-x-2 gap-y-8">
             <div className="col-span-12">
-              <div className="py-4">
-                <div className="grid grid-cols-12 gap-2 items-center">
-                  <div className="col-span-9 text-1-5rem">Overview</div>
-                  <div className="col-span-3">
-                    <div className="flex space-x-4 justify-end">
-                      <Button
-                        className={`${styles.iconBox} ${styles.button} btn-round`}
-                      >
-                        <span className={`${styles.bgWhite}`}></span>
-                        <span className={`${styles.export}`}></span>
-                      </Button>
-                      <Dropdown loading={loadings[1]} menu={{ items: items2 }}>
-                        <Button className="custom-btn">
-                          <span className="flex gap-2 items-center space-x-1 custom">
-                            <span className="ax-text-black">Last 7 days</span>
-                            <Image
-                              priority
-                              src="/images/arrow-ddl-down.svg"
-                              height={10}
-                              width={10}
-                              alt="dropdown trigger"
-                            />
-                          </span>
-                        </Button>
-                      </Dropdown>
-                    </div>
-                  </div>
+              <Headline title="Overview">
+                <div className="flex space-x-4 justify-end">
+                  <Button
+                    className={`${styles.iconBox} ${styles.button} btn-round`}
+                  >
+                    <span className={`${styles.bgWhite}`}></span>
+                    <span className={`${styles.export}`}></span>
+                  </Button>
+                  <Dropdown loading={loadings[1]} menu={{ items: items2 }}>
+                    <Button className="custom-btn">
+                      <span className="flex gap-2 items-center space-x-1 custom">
+                        <span className="ax-text-black">Last 7 days</span>
+                        <Image
+                          priority
+                          src="/images/arrow-ddl-down.svg"
+                          height={10}
+                          width={10}
+                          alt="dropdown trigger"
+                        />
+                      </span>
+                    </Button>
+                  </Dropdown>
                 </div>
-              </div>
+              </Headline>
             </div>
             <div className="col-span-12">
               <div className={`p-3 ${styles.bRound} bg-white`}>
