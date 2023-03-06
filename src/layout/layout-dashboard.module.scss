@@ -1,0 +1,34 @@
+@use "../assets/styles/variables.module" as *;
+
+.dashboard {
+  color: #fff;
+}
+.trigger {
+  color: #fff;
+}
+
+.myLayout {
+  min-height: 100vh !important;
+}
+
+.userAction {
+  height: 45px;
+}
+.separator {
+  height: 100%;
+  width: 1px;
+  background-color: #e8e9eb;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.notiLabel {
+  width: 17px;
+  height: 17px;
+  border-radius: 6px;
+  background-color: $primary;
+}

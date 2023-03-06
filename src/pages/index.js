@@ -1,33 +1,20 @@
+import styles from "./dashboard.module.scss";
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import styles from "@/assets/styles/dashboard.module.scss";
 import variables from "@/assets/styles/_variables.module.scss";
-import { Layout, Menu, theme, Row, Col, Avatar, Select } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { theme, Dropdown, Button, Avatar } from "antd";
+import Headline from "@/components/Headline.js";
 
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const inter = Inter({ subsets: ["latin"] });
-
-const { Header, Sider, Content } = Layout;
-
-/* let ctx = null;
-if (typeof window !== "undefined") {
-  ctx = document.getElementById("myChart");
-} */
+import { DownOutlined } from "@ant-design/icons";
 
 // data for the sparklines that appear below header area
-const sparklineData = [24, 35, 37, 50, 31, 36, 20, 33, 40];
+const sparklineData = [24, 35, 37, 50, 31, 36, 20, 33];
 
 const chartOption = {
   chart: {
@@ -135,11 +122,171 @@ const chartOption3 = {
   colors: ["#F8BD26"],
 };
 
+const columnChartOption = {
+  chart: {
+    id: "col-chart-stat",
+    type: "bar",
+    width: "100%",
+    toolbar: {
+      show: false,
+    },
+  },
+  colors: ["#0A6EE1", "#22AB67"],
+  plotOptions: {
+    bar: {
+      horizontal: false,
+      columnWidth: "65%",
+      endingShape: "rounded",
+      borderRadiusApplication: "end",
+      borderRadius: 10,
+    },
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  stroke: {
+    show: true,
+    width: 2,
+    colors: ["transparent"],
+  },
+  xaxis: {
+    categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  },
+  yaxis: {
+    // title: {
+    //   text: "$ (thousands)",
+    // },
+    min: 0,
+    max: 10000,
+    tickAmount: 4,
+    // logarithmic: true,
+    // logBase: 10,
+    // forceNiceScale: true,
+    labels: {
+      formatter: function labelFormatter(value) {
+        let val = Math.abs(value);
+        if (val >= 1000) {
+          val = (val / 1000).toFixed() + " K";
+        }
+
+        // console.log("check val", val);
+        return val;
+      },
+    },
+  },
+  legend: {
+    show: false,
+  },
+  fill: {
+    opacity: 1,
+  },
+  tooltip: {
+    y: {
+      formatter: function (val) {
+        return "$ " + val + " thousands";
+      },
+    },
+  },
+};
+
+const balanceChartOption = {
+  chart: {
+    id: "balance",
+    type: "line",
+    width: "100%",
+    toolbar: {
+      show: false,
+    },
+  },
+  stroke: {
+    curve: "smooth",
+  },
+  grid: {
+    show: true,
+    borderColor: "#FFFFFF30",
+    strokeDashArray: 6,
+    /* row: {
+      color: "#FFFFFF",
+      opacity: 0.2,
+    },
+    column: {
+      color: "#FFFFFF",
+      opacity: 0.2,
+    }, */
+  },
+
+  legend: {
+    show: false,
+  },
+  yaxis: {
+    show: false,
+  },
+  xaxis: {
+    // tickAmount: 20,
+    // tickPlacement: "between",
+    labels: {
+      show: false,
+    },
+    axisBorder: {
+      show: false,
+      height: 2,
+    },
+    axisTicks: {
+      // show: true,
+      show: true,
+      borderType: "dashed",
+      color: "#FFF",
+      height: 4,
+      offsetX: 1,
+      offsetY: -3,
+    },
+  },
+};
+
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
+  const [loadings, setLoadings] = useState([]);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const items = [
+    {
+      label: "Select Date Range",
+      key: "1",
+    },
+  ];
+  const items2 = [
+    {
+      label: "Select Cards",
+      key: "2",
+      onClick: () => enterLoading(1),
+    },
+  ];
+
+  /* const menuProps = {
+    items,
+    onClick: () => enterLoading(1),
+  };
+  const menuProps2 = {
+    items: items2,
+    onClick: () => enterLoading(1),
+  }; */
+
+  const enterLoading = (index) => {
+    setLoadings((state) => {
+      const newLoadings = [...state];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((state) => {
+        const newLoadings = [...state];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
+  };
 
   const [barData, setBarData] = useState([
     {
@@ -149,152 +296,527 @@ export default function Home() {
     },
   ]);
 
+  const [colData, setColData] = useState([
+    {
+      name: "Income",
+      data: [1900, 2600, 5300, 4900, 9000, 5600, 3900],
+    },
+    {
+      name: "Expand",
+      data: [7400, 500, 2400, 1000, 1600, 4200, 1800],
+    },
+  ]);
+
   useEffect(() => {}, []);
 
-  function randomizeArray(arg) {
-    const array = arg.slice();
-    let currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
+  function btnCustom(buttons) {
+    const NewBpBtn = (
+      <div className="new-tst">
+        <div>test</div>
+      </div>
+    );
+    const NewBtn = [NewBpBtn, ...buttons];
 
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
+    return NewBtn;
   }
 
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Axons Dashboard</title>
         <meta name="description" content="Generated by create next app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="dashboard">
-        {/* test layout */}
-        <div className="container">
-          <div className="container mx-auto">
-            <div className="grid grid-cols-12 gap-2">
-              <div className="col-span-12">
-                <div className="py-4">
-                  <div className="grid grid-cols-12 gap-2">
-                    <div className="col-span-9">Overview</div>
-                    <div className="col-span-3">action and filter</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12">
-                <div className={`p-3 ${styles.bRound} bg-white`}>
-                  <div
-                    className={`grid grid-cols-12 gap-2 ${styles.chartLine}`}
-                  >
-                    <div className="col-span-4 bg-white">
-                      <div className="grid grid-cols-12 gap-1 px-2">
-                        <div className="col-span-8 text-base">
-                          <div className="">Total Income</div>
-                          <div className="pt-1">
-                            <span className="text-2rem">$8.500</span>
-                            <span className="inline-flex items-center pl-2">
-                              {" "}
-                              <Image
-                                priority
-                                src="/images/Arrow.svg"
-                                height={15}
-                                width={15}
-                                alt="Follow us on Twitter"
-                              />{" "}
-                              <span>50.8%</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div className="col-span-4">
-                          <Chart
-                            options={chartOption}
-                            series={barData}
-                            type="area"
-                            // width="500"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-4 bg-white">
-                      <div className="grid grid-cols-12 gap-1 px-2">
-                        <div className="col-span-8 text-base">
-                          <div className="">Total Expense</div>
-                          <div className="pt-1">
-                            <span className="text-2rem">3.500K</span>
-                            <span className="inline-flex items-center pl-2">
-                              {" "}
-                              <Image
-                                priority
-                                src="/images/Arrow.svg"
-                                height={15}
-                                width={15}
-                                alt="Follow us on Twitter"
-                              />{" "}
-                              <span>10.5%</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div className="col-span-4">
-                          <Chart
-                            options={chartOption2}
-                            series={barData}
-                            type="area"
-                            // width="500"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-span-4 bg-white">
-                      <div className="grid grid-cols-12 gap-1 px-2">
-                        <div className="col-span-8 text-base">
-                          <div className="">Total Bonus</div>
-                          <div className="pt-1">
-                            <span className="text-2rem">5.100K</span>
-                            <span className="inline-flex items-center pl-2">
-                              {" "}
-                              <Image
-                                priority
-                                src="/images/Arrow.svg"
-                                height={15}
-                                width={15}
-                                alt="Follow us on Twitter"
-                              />{" "}
-                              <span>24.9%</span>
-                            </span>
-                          </div>
-                        </div>
-                        <div className="col-span-4">
-                          <Chart
-                            options={chartOption3}
-                            series={barData}
-                            type="area"
-                            // width="500"
-                          />
-                        </div>
-                      </div>
+      <div className={`dashboard ${styles.chart}`}>
+        <div className="container mx-auto">
+          <div className="grid grid-cols-12 gap-x-2 gap-y-8">
+            <div className="col-span-12">
+              <div className="py-4">
+                <div className="grid grid-cols-12 gap-2 items-center">
+                  <div className="col-span-9 text-1-5rem">Overview</div>
+                  <div className="col-span-3">
+                    <div className="flex space-x-4 justify-end">
+                      <Button
+                        className={`${styles.iconBox} ${styles.button} btn-round`}
+                      >
+                        <span className={`${styles.bgWhite}`}></span>
+                        <span className={`${styles.export}`}></span>
+                      </Button>
+                      <Dropdown loading={loadings[1]} menu={{ items: items2 }}>
+                        <Button className="custom-btn">
+                          <span className="flex gap-2 items-center space-x-1 custom">
+                            <span className="ax-text-black">Last 7 days</span>
+                            <Image
+                              priority
+                              src="/images/arrow-ddl-down.svg"
+                              height={10}
+                              width={10}
+                              alt="dropdown trigger"
+                            />
+                          </span>
+                        </Button>
+                      </Dropdown>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="col-span-12">
-                <div className="grid grid-cols-12 gap-2">
-                  <div className="col-span-7">bar chart</div>
-                  <div className="col-span-5">bar chart</div>
+            </div>
+            <div className="col-span-12">
+              <div className={`p-3 ${styles.bRound} bg-white`}>
+                <div className={`grid grid-cols-12 gap-2 ${styles.chartLine}`}>
+                  <div className="col-span-4 bg-white">
+                    <div className="grid grid-cols-12 gap-1 px-2">
+                      <div className="col-span-8 text-base">
+                        <div className="">Total Income</div>
+                        <div className="pt-1">
+                          <span className="text-2rem">$8.500</span>
+                          <span className="inline-flex items-center pl-2">
+                            {" "}
+                            <Image
+                              priority
+                              src="/images/arrow-up.svg"
+                              height={15}
+                              width={15}
+                              alt="Follow us on Twitter"
+                            />{" "}
+                            <span>50.8%</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="col-span-4">
+                        <Chart
+                          options={chartOption}
+                          series={barData}
+                          type="area"
+                          // width="500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-4 bg-white">
+                    <div className="grid grid-cols-12 gap-1 px-2">
+                      <div className="col-span-8 text-base">
+                        <div className="">Total Expense</div>
+                        <div className="pt-1">
+                          <span className="text-2rem">3.500K</span>
+                          <span className="inline-flex items-center pl-2">
+                            {" "}
+                            <Image
+                              priority
+                              src="/images/arrow-up.svg"
+                              height={15}
+                              width={15}
+                              alt="Follow us on Twitter"
+                            />{" "}
+                            <span>10.5%</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="col-span-4">
+                        <Chart
+                          options={chartOption2}
+                          series={barData}
+                          type="area"
+                          // width="500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-4 bg-white">
+                    <div className="grid grid-cols-12 gap-1 px-2">
+                      <div className="col-span-8 text-base">
+                        <div className="">Total Bonus</div>
+                        <div className="pt-1">
+                          <span className="text-2rem">5.100K</span>
+                          <span className="inline-flex items-center pl-2">
+                            {" "}
+                            <Image
+                              priority
+                              src="/images/arrow-up.svg"
+                              height={15}
+                              width={15}
+                              alt="Follow us on Twitter"
+                            />{" "}
+                            <span>24.9%</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div className="col-span-4">
+                        <Chart
+                          options={chartOption3}
+                          series={barData}
+                          type="area"
+                          // width="500"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="col-span-12">
-                <div className="grid grid-cols-12 gap-2">
-                  <div className="col-span-7">credit card</div>
-                  <div className="col-span-5">Transection</div>
+            </div>
+            <div className="col-span-12">
+              <div className="grid grid-cols-12 gap-x-8">
+                <div className="col-span-7">
+                  <div className={`bar-chart p-6 bg-white ${styles.bRound}`}>
+                    <div className="grid grid-cols-12 gap-2 pb-4 items-center">
+                      <div className="col-span-8 text-2xl">Statistics</div>
+                      <div className="col-span-4 justify-self-end">
+                        <Dropdown loading={loadings[1]} menu={{ items }}>
+                          <Button className="custom-btn">
+                            <div className="flex gap-2 items-center">
+                              <Image
+                                priority
+                                src="/images/calendar.svg"
+                                height={15}
+                                width={15}
+                                alt="date picker"
+                              />
+                              <span>19 Aug - 25 Aug</span>
+                              <Image
+                                priority
+                                src="/images/arrow-ddl-down.svg"
+                                height={10}
+                                width={10}
+                                alt="dropdown trigger"
+                              />
+                            </div>
+                          </Button>
+                        </Dropdown>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12 gap-2">
+                      <div className={`col-span-3 flex gap-x-2`}>
+                        <div className={`${styles.iconBox}`}>
+                          <div className={`${styles.bg}`}></div>
+                          <div className={`${styles.arrUp}`}></div>
+                        </div>
+                        <div className="detail">
+                          <div className={`${styles.title}`}>20.500</div>
+                          <div className={`${styles.type}`}>Income</div>
+                        </div>
+                      </div>
+                      <div className="col-span-3 flex gap-x-2">
+                        <div className={`${styles.iconBox}`}>
+                          <div className={`${styles.bg}`}></div>
+                          <div className={`${styles.arrDown}`}></div>
+                        </div>
+                        <div className="detail">
+                          <div className={`${styles.title}`}>5.400</div>
+                          <div className={`${styles.type}`}>Outcome</div>
+                        </div>
+                      </div>
+                    </div>
+                    <Chart
+                      options={columnChartOption}
+                      series={colData}
+                      type="bar"
+                    />
+                  </div>
+                </div>
+                <div className="col-span-5">
+                  <div className={`${styles.bRound} ${styles.balanceCard} p-6`}>
+                    <Headline title="Balance">
+                      <Button type="text" className="custom-btn body-ligth ">
+                        <Image
+                          className="align-middle"
+                          priority
+                          src="/images/more.svg"
+                          height={20}
+                          width={20}
+                          alt="more info"
+                        />
+                      </Button>
+                    </Headline>
+                    <div className=" grid grid-cols-12">
+                      <div className="col-span-12">
+                        <div className="grid grid-cols-12 pt-4">
+                          <div className="col-span-12">
+                            <div className="text-4xl">$27,500.00</div>
+                            <div className="space-x-2 text-white">
+                              <Button type="text" className="body-ligth">
+                                Income
+                              </Button>
+                              <Button type="text" className="body-ligth">
+                                Expenses
+                              </Button>
+                            </div>
+                            <Chart
+                              options={balanceChartOption}
+                              series={colData}
+                              type="line"
+                            />
+                          </div>
+                          <div className="col-span-4">
+                            <div className="px-4">
+                              <span className="opacity-80">Income:</span> $500
+                            </div>
+                          </div>
+                          <div className="col-span-4">
+                            <div className="px-4">
+                              <span className="opacity-80">Spending:</span> $200
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-span-12">
+              <div className="grid grid-cols-12 gap-x-8">
+                <div className="col-span-7">
+                  <div className={`my-cards p-6 bg-white ${styles.bRound}`}>
+                    <Headline title="My Card">
+                      <Dropdown loading={loadings[1]} menu={{ items: items2 }}>
+                        <Button className="custom-btn">
+                          <span className="flex gap-2 items-center space-x-1 custom">
+                            <Image
+                              priority
+                              src="/images/card-logo.svg"
+                              height={15}
+                              width={15}
+                              alt="date picker"
+                            />
+                            <span>5880 **** **** 8854</span>
+                            <Image
+                              priority
+                              src="/images/arrow-ddl-down.svg"
+                              height={10}
+                              width={10}
+                              alt="dropdown trigger"
+                            />
+                          </span>
+                        </Button>
+                      </Dropdown>
+                    </Headline>
+                    <div className="grid grid-cols-12 gap-2 pb-4 md:gap-x-4 lg:gap-x-8">
+                      <div className="col-span-6">
+                        <div className={styles.myCardBase}>
+                          <div className="absolute top-6 left-6">
+                            <div className="text-sm opacity-80">
+                              Current Balance
+                            </div>
+                            <div className="text-2xl">80,700.00</div>
+                          </div>
+                          <div className="absolute bottom-6 left-6 z-20">
+                            <div className="text-lg">Felecia Brown</div>
+                            <div className="text-sm opacity-80">
+                              •••• •••• •••• 8854
+                            </div>
+                          </div>
+                          <div className="absolute top-6 right-6">
+                            <Image
+                              priority
+                              src="/images/visa-logo.svg"
+                              height={16}
+                              width={45}
+                              alt="visa"
+                            />
+                          </div>
+                          <div className="absolute bottom-6 right-6 z-10 text-sm">
+                            12/19
+                          </div>
+                          <div className={styles.circleAw}></div>
+                        </div>
+                      </div>
+                      <div className="col-span-6">
+                        <div className="card-detail space-y-3">
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth">
+                              Card Type:
+                            </div>
+                            <div className="col-span-6">Visa</div>
+                          </div>
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth">
+                              Card Holder:
+                            </div>
+                            <div className="col-span-6">Felecia Brown</div>
+                          </div>
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth ">
+                              Expires:
+                            </div>
+                            <div className="col-span-6">12/19</div>
+                          </div>
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth ">
+                              Card Number:
+                            </div>
+                            <div className="col-span-6">
+                              5880 5087 3288 8854
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth ">
+                              Total Balance:
+                            </div>
+                            <div className="col-span-6">80,700.00</div>
+                          </div>
+                          <div className="grid grid-cols-12">
+                            <div className="col-span-6 body-ligth ">
+                              Total Debt:
+                            </div>
+                            <div className="col-span-6">8,250.00</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-12 gap-2 gap-x-12">
+                      <div className="col-span-6">
+                        <div className="py-8">
+                          <div
+                            className={`h-separator ${styles.lineMaxwidth} mx-auto`}
+                          ></div>
+                        </div>
+                        <Button className="w-full custom-btn relative borderless primary">
+                          <span
+                            className={`w-full h-full absolute ${styles.btnBg} btn-round`}
+                          ></span>
+                          <span className="custom items-center gap-2 justify-center">
+                            <span className={styles.addIcon} />
+                            <span>Add</span>
+                          </span>
+                        </Button>
+                      </div>
+                      <div className="col-span-6">
+                        <div className="py-8">
+                          <div
+                            className={`h-separator ${styles.lineMaxwidth} mx-auto`}
+                          ></div>
+                        </div>
+                        <div className="grid grid-cols-12 gap-4">
+                          <div className="col-span-5">
+                            <Button className="w-full custom-btn relative borderless primary-bg ">
+                              <span className="text-white">Pay Debt</span>
+                            </Button>
+                          </div>
+                          <div className="col-span-5">
+                            <Button className="w-full custom-btn relative ">
+                              <span className="body-dark">Cancel</span>
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-span-5">
+                  <div className={`${styles.transactions} p-6 min-h-full`}>
+                    <Headline title="Transection">
+                      <Button type="text" className="custom-btn body-ligth ">
+                        <Image
+                          className="align-middle"
+                          priority
+                          src="/images/more.svg"
+                          height={20}
+                          width={20}
+                          alt="more info"
+                        />
+                      </Button>
+                    </Headline>
+                    <section className="transection-list space-y-6">
+                      <section className="grid grid-cols-12 items-center">
+                        <div className="col-span-9">
+                          <div className="flex items-center gap-x-4">
+                            <Avatar
+                              className={`${styles.icon} ${styles.shopping}`}
+                              src="/images/shopping.svg"
+                              alt="shopping"
+                            />
+                            <div className="detail">
+                              <div>Shopping</div>
+                              <div className="body-ligth">
+                                08:00 AM — 19 August
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-right">-$1.400</div>
+                      </section>
+                      <section className="grid grid-cols-12 items-center">
+                        <div className="col-span-9">
+                          <div className="flex items-center gap-x-4">
+                            <Avatar
+                              className={`${styles.icon} ${styles.travel}`}
+                              src="/images/travel.svg"
+                              alt="shopping"
+                            />
+                            <div className="detail">
+                              <div>Travel</div>
+                              <div className="body-ligth">
+                                09:45 AM — 21 August
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-right">-$850</div>
+                      </section>
+                      <section className="grid grid-cols-12 items-center">
+                        {/* <div className="col-span-2 justify-self-center">
+                          <Avatar
+                            className={`${styles.icon} ${styles.food}`}
+                            src="/images/shopping.svg"
+                            alt="shopping"
+                          />
+                        </div> */}
+                        <div className="col-span-9">
+                          <div className="flex items-center gap-x-4">
+                            <Avatar
+                              className={`${styles.icon} ${styles.food}`}
+                              src="/images/shopping.svg"
+                              alt="shopping"
+                            />
+                            <div className="detail">
+                              <div>Food</div>
+                              <div className="body-ligth">
+                                10:15 AM — 24 August
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-right">-$2.150</div>
+                      </section>
+                      <section className="grid grid-cols-12 items-center">
+                        <div className="col-span-9">
+                          <div className="flex items-center gap-x-4">
+                            <Avatar
+                              className={`${styles.icon} ${styles.medicine}`}
+                              src="/images/like.svg"
+                              alt="medicine"
+                            />
+                            <div className="detail">
+                              <div>Medicine</div>
+                              <div className="body-ligth">
+                                10:50 AM — 24 August
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-right">-$650</div>
+                      </section>
+                      <section className="grid grid-cols-12 items-center">
+                        <div className="col-span-9">
+                          <div className="flex items-center gap-x-4">
+                            <Avatar
+                              className={`${styles.icon} ${styles.sport}`}
+                              src="/images/sport.svg"
+                              alt="sport"
+                            />
+                            <div className="detail">
+                              <div>Sport</div>
+                              <div className="body-ligth">
+                                12:45 AM — 28 August
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-span-3 text-right">-$900</div>
+                      </section>
+                    </section>
+                  </div>
                 </div>
               </div>
             </div>

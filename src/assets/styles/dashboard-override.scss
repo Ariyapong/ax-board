@@ -5,6 +5,29 @@
 .ant-select .ant-select-arrow {
   color: #fff;
 }
-.ant-select-single.ant-select-open .ant-select-selection-item{
-    color: #fff;
+.ant-select-single.ant-select-open .ant-select-selection-item {
+  color: #fff;
 }
+
+.ant-btn {
+  & > span {
+    &.custom {
+      display: flex;
+    }
+  }
+}
+
+//tabs
+.ant-tabs-nav {
+  margin: 0 0 2rem 0 !important;
+}
+
+/* .bar-chart {
+  .ant-btn-compact-first-item {
+    border-right-width: 0px;
+    margin-inline-end: 0;
+  }
+  .ant-dropdown-trigger {
+    border-left-width: 0;
+  }
+} */

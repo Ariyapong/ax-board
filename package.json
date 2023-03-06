@@ -22,6 +22,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "sass": "^1.58.3",

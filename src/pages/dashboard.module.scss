@@ -1,0 +1,183 @@
+@use "../assets/styles/variables.module" as *;
+
+.myLayout {
+  min-height: 100vh !important;
+}
+
+.trigger {
+  color: #fff;
+}
+
+.xflex {
+  display: flex;
+}
+
+.dashboard {
+  color: #fff;
+}
+.antLayout {
+  min-height: 100vh;
+}
+.userProfile {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.userAction {
+  height: 45px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.separator {
+  height: 100%;
+  width: 1px;
+  background-color: #e8e9eb;
+}
+
+.fixHeight {
+  height: 45px;
+}
+
+.bRound {
+  border-radius: 20px;
+}
+
+.chartLine {
+  background-color: #e8e9eb;
+  gap: 2px;
+}
+
+.iconBox {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.button {
+    padding: 0;
+  }
+  .bg {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: $primary;
+    opacity: 0.1;
+    border-radius: 14px;
+  }
+  .bgWhite {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 14px;
+  }
+  .arrUp {
+    width: 18px;
+    height: 18px;
+    background-color: $primary;
+    -webkit-mask: url("/images/arrow-up.svg") no-repeat center;
+    mask: url("/images/arrow-up.svg") no-repeat center;
+  }
+  .arrDown {
+    width: 18px;
+    height: 18px;
+    background-color: $green;
+    -webkit-mask: url("/images/arrow-down.svg") no-repeat center;
+    mask: url("/images/arrow-down.svg") no-repeat center;
+  }
+  .export {
+    width: 18px;
+    height: 18px;
+    background-color: $black;
+    -webkit-mask: url("/images/export.svg") no-repeat center;
+    mask: url("/images/export.svg") no-repeat center;
+  }
+}
+.title {
+  font-size: 18px;
+}
+.type {
+  font-size: 14px;
+}
+
+.chart {
+  .balanceCard {
+    width: 100%;
+    height: 100%;
+    background-color: $primary;
+    filter: drop-shadow(-4px 8px 24px rgba(44, 63, 88, 0.02));
+    color: #fff;
+  }
+  .myCardBase {
+    position: relative;
+    max-width: 300px;
+    height: 190px;
+    margin: 0 auto;
+    background-color: $primary;
+    border-radius: 12px;
+    overflow: hidden;
+    color: #fff;
+
+    .circleAw {
+      background-color: $green;
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      right: 0;
+      margin-right: -150px;
+      bottom: -165px;
+      // bottom: -90%;
+      // right: -60%;
+    }
+  }
+
+  .addIcon {
+    width: 15px;
+    height: 15px;
+    background-color: $primary;
+    -webkit-mask: url(/images/plus.svg) no-repeat center;
+    mask: url(/images/plus.svg) no-repeat center;
+  }
+
+  .btnBg {
+    left: 0;
+    top: 0;
+    background-color: #0a6ee1;
+    opacity: 0.05;
+  }
+
+  .lineMaxwidth {
+    max-width: 300px;
+  }
+
+  .transactions {
+    background-color: #fff;
+    border-radius: 12px;
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      padding: 0.4rem;
+
+      &.shopping {
+        background-color: #f79009;
+      }
+      &.travel {
+        background-color: #bf5af2;
+      }
+      &.food {
+        background-color: #f8bd26;
+      }
+      &.medicine {
+        background-color: #e5347c;
+      }
+      &.sport {
+        background-color: #0086c9;
+      }
+    }
+  }
+}

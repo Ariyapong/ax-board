@@ -1,13 +1,19 @@
 // $primary-color: #64ff00;
-$primary-color: #0a6ee1;
+$primary: #0a6ee1;
 $black: #3f434a;
 $gray: #8a9099;
 $green: #22ab67;
 $white: #ffffff;
+$disabled: #e8e9eb;
+$body-light: #8a9099;
+$body-dark: #595f69;
 
 :export {
-  primaryColor: $primary-color;
+  primaryColor: $primary;
   black: $black;
   gray: $gray;
   green: $green;
+  bodyLight: $body-light;
+  bodyLight: $body-dark;
+  disabled: $disabled;
 }

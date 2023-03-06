@@ -1,0 +1,76 @@
+@use "./variables.module" as *;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  /*   color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); */
+
+  background-color: #fff;
+}
+
+.text-2rem {
+  font-size: 2rem;
+}
+.text-1-5rem {
+  font-size: 1.75rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.h-separator {
+  width: 100%;
+  height: 2px;
+  background: #e8e9eb;
+}
+
+.custom-btn {
+  border-radius: 14px;
+  height: 40px;
+
+  &.borderless {
+    border-color: transparent;
+    &:hover {
+      border-color: #4096ff;
+    }
+  }
+}
+
+.btn-round {
+  border-radius: 14px;
+}
+
+.body-ligth {
+  color: $body-light;
+}
+.body-dark {
+  color: $body-dark;
+}
+.primary-bg {
+  background-color: $primary;
+}
+.primary {
+  color: $primary;
+}
+.ax-text-black {
+  color: $black;
+}
