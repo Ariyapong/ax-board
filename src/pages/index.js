@@ -393,7 +393,9 @@ export default function Home() {
                       <div className="col-span-8 text-base xl:col-span-7">
                         <div className="body-ligth">Total Income</div>
                         <div className="pt-1">
-                          <span className="text-2rem">$8.500</span>
+                          <span className="text-2rem ax-text-black">
+                            $8.500
+                          </span>
                           <span className="inline-flex items-center pl-2">
                             {" "}
                             <Image
@@ -422,7 +424,9 @@ export default function Home() {
                       <div className="col-span-8 text-base xl:col-span-7">
                         <div className="body-ligth">Total Expense</div>
                         <div className="pt-1">
-                          <span className="text-2rem">3.500K</span>
+                          <span className="text-2rem ax-text-black">
+                            3.500K
+                          </span>
                           <span className="inline-flex items-center pl-2">
                             {" "}
                             <Image
@@ -450,7 +454,9 @@ export default function Home() {
                       <div className="col-span-8 text-base xl:col-span-7">
                         <div className="body-ligth">Total Bonus</div>
                         <div className="pt-1">
-                          <span className="text-2rem">5.100K</span>
+                          <span className="text-2rem ax-text-black">
+                            5.100K
+                          </span>
                           <span className="inline-flex items-center pl-2">
                             {" "}
                             <Image

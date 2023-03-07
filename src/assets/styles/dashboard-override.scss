@@ -62,6 +62,20 @@
   .ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
     background: $table-selected;
   }
+
+  .ant-pagination .ant-pagination-item-active {
+    background-color: $primary;
+    border-radius: 10px;
+  }
+  .ant-pagination .ant-pagination-item a {
+    color: $black;
+  }
+  .ant-pagination .ant-pagination-item-active a {
+    color: #fff;
+  }
+  .ant-pagination-item-link:not([disabled]) {
+    color: $primary;
+  }
 }
 
 // antd menu
