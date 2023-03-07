@@ -441,7 +441,6 @@ export default function Home() {
                           options={chartOption2}
                           series={barData}
                           type="area"
-                          // width="500"
                         />
                       </div>
                     </div>

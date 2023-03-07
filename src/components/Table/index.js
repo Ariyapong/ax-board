@@ -23,19 +23,17 @@ const itemsDropdown = [
   },
 ];
 export default function ProductTable() {
-  const defaultTitle = () => "Here is title";
   const defaultFooter = () => "Here is footer";
-  const showTitle = true;
   const showfooter = false;
   const ellipsis = false;
-  const [loading, setLoading] = useState(false);
   const [hasData, setHasData] = useState(true);
 
   const columns = [
     {
-      title: "PRODUCT NAME",
+      title: <span className="ax-text-gray">PRODUCT NAME</span>,
       dataIndex: "pname",
       filterIcon: <MenuDown />,
+      className: "ax-text-black",
       filters: [
         {
           text: "London",
@@ -49,9 +47,10 @@ export default function ProductTable() {
       onFilter: () => {},
     },
     {
-      title: "PRODUCT NO",
+      title: <span className="ax-text-gray">PRODUCT NO</span>,
       dataIndex: "pno",
       filterIcon: <MenuDown />,
+      className: "ax-text-gray",
       filters: [
         {
           text: "London",
@@ -67,9 +66,10 @@ export default function ProductTable() {
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "CATEGORY",
+      title: <span className="ax-text-gray">CATEGORY</span>,
       dataIndex: "category",
       filterIcon: <MenuDown />,
+      className: "ax-text-black",
       filters: [
         {
           text: "London",
@@ -83,9 +83,10 @@ export default function ProductTable() {
       onFilter: () => {},
     },
     {
-      title: "DATE",
+      title: <span className="ax-text-gray">DATE</span>,
       dataIndex: "date",
       filterIcon: <MenuDown />,
+      className: "ax-text-gray",
       filters: [
         {
           text: "London",
@@ -100,9 +101,10 @@ export default function ProductTable() {
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "PRICE",
+      title: <span className="ax-text-gray">PRICE</span>,
       dataIndex: "price",
       filterIcon: <MenuDown />,
+      className: "ax-text-black",
       filters: [
         {
           text: "London",
@@ -117,7 +119,7 @@ export default function ProductTable() {
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "STATUS",
+      title: <span className="ax-text-gray">STATUS</span>,
       key: "status",
       filterIcon: <MenuDown />,
       filters: [
@@ -162,12 +164,10 @@ export default function ProductTable() {
     loading: false,
     size: "large",
     expandable: false,
-    // title: showTitle ? defaultTitle : undefined,
     title: undefined,
     showHeader: true,
     footer: showfooter ? defaultFooter : undefined,
     rowSelection: {},
-    // scroll,
     tableLayout: undefined,
   };
 
