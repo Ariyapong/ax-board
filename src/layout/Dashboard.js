@@ -45,73 +45,110 @@ export default function Dashboard(props) {
     {
       key: "1",
       icon: <Grid />,
-      label: <Link href="/">Dashboard</Link>,
+      label: (
+        <>
+          <div className={`active-indicator absolute left-0 top-0`}></div>
+          <Link className="ax-text-black" href="/">
+            Dashboard
+          </Link>
+        </>
+      ),
     },
-    // {
-    //   key: "2",
-    //   icon: <Shopping viewBox="0 0 18 18" width="18" height="18" />,
-    //   label: "E-Commerce",
-    // },
     getItem(
-      "E-Commerce",
+      <>
+        <div className={`active-indicator absolute left-0 top-0`}></div>
+        <span className="ax-text-black">E-Commerce</span>
+      </>,
       "2",
       <Shopping viewBox="0 0 18 18" width="18" height="18" />,
       [
         getItem(<Link href="/product">Products</Link>, "sub2-1", <Dot />),
-        getItem("Orders", "sub2-2", <Dot />),
-        getItem("Customers", "sub2-3", <Dot />),
+        getItem(<Link href="">Orders</Link>, "sub2-2", <Dot />),
+        getItem(<Link href="">Customers</Link>, "sub2-3", <Dot />),
       ]
     ),
     {
       key: "3",
       // icon: <UploadOutlined />,
       icon: <Calendar viewBox="0 0 18 18" width="18" height="18" />,
-      label: "Calendar",
+      label: (
+        <>
+          <div className={`active-indicator absolute left-0 top-0`}></div>
+          <span>Calendar</span>
+        </>
+      ),
     },
     {
       key: "4",
       icon: <Mail viewBox="0 0 18 18" width="18" height="18" />,
       label: (
-        <span className="flex w-full justify-between">
-          <span>Mail</span> <Unread unreadMsg={8} />
-        </span>
-        // <div className="flex items-center justify-between">
-        //   <div>Mail</div>{" "}
-        //   <div className={`${styles.notiLabel} text-xs text-center text-white`}>
-        //     8
-        //   </div>
-        // </div>
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span className="flex w-full justify-between">
+            <span>Mail</span> <Unread unreadMsg={8} />
+          </span>
+        </>
       ),
     },
     {
       key: "5",
       icon: <Chat viewBox="0 0 18 18" width="18" height="18" />,
-      label: "Chat",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>Chat</span>
+        </>
+      ),
     },
     {
       key: "6",
       icon: <Task viewBox="0 0 18 18" width="18" height="18" />,
-      label: "Tasks",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>Tasks</span>
+        </>
+      ),
     },
     {
       key: "7",
       icon: <Project viewBox="-2 0 18 18" width="18" height="18" />,
-      label: "Projects",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>Projects</span>
+        </>
+      ),
     },
     {
       key: "8",
       icon: <Folder viewBox="0 0 18 18" width="18" height="18" />,
-      label: "File Manager",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>File Manager</span>
+        </>
+      ),
     },
     {
       key: "9",
       icon: <Text viewBox="-3 0 18 18" width="18" height="18" />,
-      label: "Notes",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>Notes</span>
+        </>
+      ),
     },
     {
       key: "10",
       icon: <Contact viewBox="0 0 18 18" width="18" height="18" />,
-      label: "Contacts",
+      label: (
+        <>
+          <div className="active-indicator absolute left-0 top-0"></div>
+          <span>Contacts</span>
+        </>
+      ),
     },
   ];
 
@@ -176,7 +213,9 @@ export default function Dashboard(props) {
                   <Button
                     type="text"
                     shape="circle"
-                    icon={<Search className="text-white" aria-label="search icon" />}
+                    icon={
+                      <Search className="text-white" aria-label="search icon" />
+                    }
                   />
                   <Button
                     type="text"
@@ -221,6 +260,7 @@ export default function Dashboard(props) {
             mode="inline"
             defaultSelectedKeys={["1"]}
             items={items}
+            style={{ position: "relative" }}
           />
         </Sider>
         <Layout className="site-layout">

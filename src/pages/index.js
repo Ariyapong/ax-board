@@ -264,15 +264,6 @@ export default function Home() {
     },
   ];
 
-  /* const menuProps = {
-    items,
-    onClick: () => enterLoading(1),
-  };
-  const menuProps2 = {
-    items: items2,
-    onClick: () => enterLoading(1),
-  }; */
-
   const enterLoading = (index) => {
     setLoadings((state) => {
       const newLoadings = [...state];
