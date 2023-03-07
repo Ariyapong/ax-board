@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import variables from "@/assets/styles/_variables.module.scss";
 import { theme, Dropdown, Button, Avatar } from "antd";
 import Headline from "@/components/Headline.js";
+import More from "../../public/images/more.svg";
+import Calendar from "../../public/images/calendar.svg";
 
 import dynamic from "next/dynamic";
 
@@ -29,6 +31,7 @@ const chartOption = {
   },
   stroke: {
     curve: "smooth",
+    width: 2,
   },
   fill: {
     // opacity: 1,
@@ -66,6 +69,7 @@ const chartOption2 = {
   },
   stroke: {
     curve: "smooth",
+    width: 2,
   },
   fill: {
     type: "gradient",
@@ -100,6 +104,7 @@ const chartOption3 = {
   },
   stroke: {
     curve: "smooth",
+    width: 2,
   },
   fill: {
     type: "gradient",
@@ -138,7 +143,7 @@ const columnChartOption = {
       columnWidth: "65%",
       endingShape: "rounded",
       borderRadiusApplication: "end",
-      borderRadius: 10,
+      borderRadius: 12,
     },
   },
   dataLabels: {
@@ -182,7 +187,12 @@ const columnChartOption = {
   },
   tooltip: {
     y: {
-      formatter: function (val) {
+      formatter: function (val, { series, seriesIndex, dataPointIndex, w }) {
+        // console.log("debug val :", val);
+        // console.log("debug series :", series);
+        // console.log("debug seriesIndex :", seriesIndex);
+        // console.log("debug dataPointIndex :", dataPointIndex);
+        // console.log("debug w :", w);
         return "$ " + val + " thousands";
       },
     },
@@ -200,7 +210,9 @@ const balanceChartOption = {
   },
   stroke: {
     curve: "smooth",
+    lineCap: "round",
   },
+  colors: ["#ffffff", "#ffffff30"],
   grid: {
     show: true,
     borderColor: "#FFFFFF30",
@@ -241,14 +253,27 @@ const balanceChartOption = {
       offsetY: -3,
     },
   },
+  tooltip: {
+    style: {
+      fontSize: "20px",
+      fontFamily: "Poppins",
+      color: "#000",
+    },
+    marker: true,
+    custom: function ({ series, seriesIndex, dataPointIndex, w }) {
+      return (
+        '<div class="arrow_box ">' +
+        "<span>" +
+        series[seriesIndex][dataPointIndex] +
+        "</span>" +
+        "</div>"
+      );
+    },
+  },
 };
 
 export default function Home() {
-  const [collapsed, setCollapsed] = useState(false);
   const [loadings, setLoadings] = useState([]);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   const items = [
     {
@@ -297,6 +322,18 @@ export default function Home() {
       data: [7400, 500, 2400, 1000, 1600, 4200, 1800],
     },
   ]);
+  const [balanceData, setBalanceData] = useState([
+    {
+      name: "Income",
+      // data: [0, 75, 30, 100, 120, 250, 110, 230],
+      data: [0, 39, 52, 11, 29, 43],
+    },
+    {
+      name: "Expand",
+      // data: [0, 50, 15, 110, 150, 70, 150, 70, 230],
+      data: [3, 33, 21, 42, 19, 12, 43],
+    },
+  ]);
 
   useEffect(() => {}, []);
 
@@ -326,13 +363,13 @@ export default function Home() {
               <Headline title="Overview">
                 <div className="flex space-x-4 justify-end">
                   <Button
-                    className={`${styles.iconBox} ${styles.button} btn-round`}
+                    className={`${styles.iconBox} ${styles.button} btn-round custom-btn borderless`}
                   >
                     <span className={`${styles.bgWhite}`}></span>
                     <span className={`${styles.export}`}></span>
                   </Button>
                   <Dropdown loading={loadings[1]} menu={{ items: items2 }}>
-                    <Button className="custom-btn">
+                    <Button className="custom-btn borderless">
                       <span className="flex gap-2 items-center space-x-1 custom">
                         <span className="ax-text-black">Last 7 days</span>
                         <Image
@@ -352,9 +389,9 @@ export default function Home() {
               <div className={`p-3 ${styles.bRound} bg-white`}>
                 <div className={`grid grid-cols-12 gap-2 ${styles.chartLine}`}>
                   <div className="col-span-4 bg-white">
-                    <div className="grid grid-cols-12 gap-1 px-2">
-                      <div className="col-span-8 text-base">
-                        <div className="">Total Income</div>
+                    <div className="grid grid-cols-12 gap-1 px-2 items-center">
+                      <div className="col-span-8 text-base xl:col-span-7">
+                        <div className="body-ligth">Total Income</div>
                         <div className="pt-1">
                           <span className="text-2rem">$8.500</span>
                           <span className="inline-flex items-center pl-2">
@@ -370,7 +407,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      <div className="col-span-4">
+                      <div className="col-span-4 xl:col-span-5">
                         <Chart
                           options={chartOption}
                           series={barData}
@@ -381,16 +418,16 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="col-span-4 bg-white">
-                    <div className="grid grid-cols-12 gap-1 px-2">
-                      <div className="col-span-8 text-base">
-                        <div className="">Total Expense</div>
+                    <div className="grid grid-cols-12 gap-1 px-2 items-center">
+                      <div className="col-span-8 text-base xl:col-span-7">
+                        <div className="body-ligth">Total Expense</div>
                         <div className="pt-1">
                           <span className="text-2rem">3.500K</span>
                           <span className="inline-flex items-center pl-2">
                             {" "}
                             <Image
                               priority
-                              src="/images/arrow-up.svg"
+                              src="/images/arrow-down.svg"
                               height={15}
                               width={15}
                               alt="Follow us on Twitter"
@@ -399,7 +436,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      <div className="col-span-4">
+                      <div className="col-span-4 xl:col-span-5">
                         <Chart
                           options={chartOption2}
                           series={barData}
@@ -410,9 +447,9 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="col-span-4 bg-white">
-                    <div className="grid grid-cols-12 gap-1 px-2">
-                      <div className="col-span-8 text-base">
-                        <div className="">Total Bonus</div>
+                    <div className="grid grid-cols-12 gap-1 px-2 items-center">
+                      <div className="col-span-8 text-base xl:col-span-7">
+                        <div className="body-ligth">Total Bonus</div>
                         <div className="pt-1">
                           <span className="text-2rem">5.100K</span>
                           <span className="inline-flex items-center pl-2">
@@ -428,7 +465,7 @@ export default function Home() {
                           </span>
                         </div>
                       </div>
-                      <div className="col-span-4">
+                      <div className="col-span-4 xl:col-span-5">
                         <Chart
                           options={chartOption3}
                           series={barData}
@@ -449,16 +486,14 @@ export default function Home() {
                       <div className="col-span-8 text-2xl">Statistics</div>
                       <div className="col-span-4 justify-self-end">
                         <Dropdown loading={loadings[1]} menu={{ items }}>
-                          <Button className="custom-btn">
-                            <div className="flex gap-2 items-center">
-                              <Image
-                                priority
-                                src="/images/calendar.svg"
-                                height={15}
-                                width={15}
-                                alt="date picker"
-                              />
-                              <span>19 Aug - 25 Aug</span>
+                          <div className="flex gap-2 items-center">
+                            <Button
+                              className="custom-btn flex gap-2 items-center "
+                              icon={<Calendar className="ax-text-black" />}
+                            >
+                              <span className="ax-text-black">
+                                19 Aug - 25 Aug
+                              </span>
                               <Image
                                 priority
                                 src="/images/arrow-ddl-down.svg"
@@ -466,8 +501,8 @@ export default function Home() {
                                 width={10}
                                 alt="dropdown trigger"
                               />
-                            </div>
-                          </Button>
+                            </Button>
+                          </div>
                         </Dropdown>
                       </div>
                     </div>
@@ -502,44 +537,59 @@ export default function Home() {
                 </div>
                 <div className="col-span-5">
                   <div className={`${styles.bRound} ${styles.balanceCard} p-6`}>
-                    <Headline title="Balance">
-                      <Button type="text" className="custom-btn body-ligth ">
-                        <Image
+                    <Headline className="text-white" title="Balance">
+                      <Button
+                        className={`${styles.iconBox} custom-btn`}
+                        type="text"
+                        icon={<More className="text-white" />}
+                      >
+                        {/* <Image
                           className="align-middle"
                           priority
                           src="/images/more.svg"
                           height={20}
                           width={20}
                           alt="more info"
-                        />
+                        /> */}
                       </Button>
                     </Headline>
                     <div className=" grid grid-cols-12">
                       <div className="col-span-12">
-                        <div className="grid grid-cols-12 pt-4">
-                          <div className="col-span-12">
-                            <div className="text-4xl">$27,500.00</div>
+                        <div className="grid grid-cols-12 pt-4 ">
+                          <div className="col-span-12 space-y-2">
+                            <div className="text-4xl text-white">
+                              $27,500.00
+                            </div>
                             <div className="space-x-2 text-white">
-                              <Button type="text" className="body-ligth">
-                                Income
+                              <Button
+                                type="text"
+                                className={`body-ligth ${styles.balanceBtnBg}`}
+                              >
+                                {/* <span
+                                  className={`w-full h-full absolute ${styles.btnBg}`}
+                                ></span> */}
+                                <span className="">Income</span>
                               </Button>
-                              <Button type="text" className="body-ligth">
+                              <Button
+                                type="text"
+                                className={`body-ligth ${styles.balanceBtnBg}`}
+                              >
                                 Expenses
                               </Button>
                             </div>
                             <Chart
                               options={balanceChartOption}
-                              series={colData}
+                              series={balanceData}
                               type="line"
                             />
                           </div>
                           <div className="col-span-4">
-                            <div className="px-4">
+                            <div className="px-4 text-white">
                               <span className="opacity-80">Income:</span> $500
                             </div>
                           </div>
                           <div className="col-span-4">
-                            <div className="px-4">
+                            <div className="px-4 text-white">
                               <span className="opacity-80">Spending:</span> $200
                             </div>
                           </div>
@@ -565,7 +615,9 @@ export default function Home() {
                               width={15}
                               alt="date picker"
                             />
-                            <span>5880 **** **** 8854</span>
+                            <span className="ax-text-black">
+                              5880 **** **** 8854
+                            </span>
                             <Image
                               priority
                               src="/images/arrow-ddl-down.svg"

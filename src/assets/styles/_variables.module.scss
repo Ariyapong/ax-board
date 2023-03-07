@@ -7,6 +7,7 @@ $white: #ffffff;
 $disabled: #e8e9eb;
 $body-light: #8a9099;
 $body-dark: #595f69;
+$table-selected: #F8F8F8;
 
 :export {
   primaryColor: $primary;
@@ -16,4 +17,5 @@ $body-dark: #595f69;
   bodyLight: $body-light;
   bodyLight: $body-dark;
   disabled: $disabled;
+  tableSelected: $table-selected;
 }

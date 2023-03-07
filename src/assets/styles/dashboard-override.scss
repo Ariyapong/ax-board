@@ -58,6 +58,10 @@
   .ant-table-cell::before {
     content: unset !important;
   }
+
+  .ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
+    background: $table-selected;
+  }
 }
 
 // antd menu
@@ -120,4 +124,46 @@
 
 .ant-menu-light .ant-menu-item-selected {
   background-color: #e6f0fc;
+}
+
+//chart tooltip
+
+.arrow_box {
+  position: relative;
+  // background: #555;
+  // border: 2px solid #000000;
+  padding: 0 1rem;
+  border-radius: 8px;
+  color: $primary;
+}
+.arrow_box:after,
+.arrow_box:before {
+  /*   right: 0; */
+  top: 100%;
+  // left: 50%;
+  /*   bottom: 100%; */
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  // transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.arrow_box:after {
+  // border-color: rgba(85, 85, 85, 0);
+  border-right-color: #fff;
+  border-width: 10px;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+}
+
+.apexcharts-tooltip {
+  display: flex;
+  overflow: visible !important;
+  white-space: normal !important;
 }

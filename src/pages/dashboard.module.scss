@@ -110,6 +110,12 @@
     background-color: $primary;
     filter: drop-shadow(-4px 8px 24px rgba(44, 63, 88, 0.02));
     color: #fff;
+
+    .balanceBtnBg:hover {
+      background: #ffffff25;
+      border-radius: 8px;
+      color: #fff;
+    }
   }
   .myCardBase {
     position: relative;

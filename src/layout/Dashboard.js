@@ -31,6 +31,8 @@ import Text from "@/assets/images/text.svg";
 import Folder from "@/assets/images/folder.svg";
 import Contact from "@/assets/images/contacts.svg";
 import Dot from "@/assets/images/dot.svg";
+import MenuDown from "@/assets/images/menu-down.svg";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -239,6 +241,7 @@ export default function Dashboard(props) {
                         { value: "lucy", label: "Lucy" },
                         { value: "Yiminghe", label: "yiminghe" },
                       ]}
+                      suffixIcon={<MenuDown className="text-white" />}
                     />
                   </div>
                 </div>
@@ -256,6 +259,7 @@ export default function Dashboard(props) {
           width={270}
         >
           <Menu
+            className="h-full"
             theme="light"
             mode="inline"
             defaultSelectedKeys={["1"]}

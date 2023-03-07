@@ -33,7 +33,7 @@ export default function ProductTable() {
 
   const columns = [
     {
-      title: "Product Name",
+      title: "PRODUCT NAME",
       dataIndex: "pname",
       filterIcon: <MenuDown />,
       filters: [
@@ -46,10 +46,10 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
     },
     {
-      title: "Product No.",
+      title: "PRODUCT NO",
       dataIndex: "pno",
       filterIcon: <MenuDown />,
       filters: [
@@ -62,11 +62,12 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
+      width: 150,
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "Category",
+      title: "CATEGORY",
       dataIndex: "category",
       filterIcon: <MenuDown />,
       filters: [
@@ -79,10 +80,10 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
     },
     {
-      title: "Date",
+      title: "DATE",
       dataIndex: "date",
       filterIcon: <MenuDown />,
       filters: [
@@ -95,11 +96,11 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "Price",
+      title: "PRICE",
       dataIndex: "price",
       filterIcon: <MenuDown />,
       filters: [
@@ -112,11 +113,11 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
       //   sorter: (a, b) => a.age - b.age,
     },
     {
-      title: "Status",
+      title: "STATUS",
       key: "status",
       filterIcon: <MenuDown />,
       filters: [
@@ -129,7 +130,7 @@ export default function ProductTable() {
           value: "New York",
         },
       ],
-      onFilter: (value, record) => record.address.indexOf(value) === 0,
+      onFilter: () => {},
       //   sorter: true,
       render: (data) => {
         return (

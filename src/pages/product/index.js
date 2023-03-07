@@ -62,7 +62,7 @@ export default function Product() {
           <Headline title="Products">
             <div className="flex space-x-4 justify-end">
               <Dropdown menu={{ items: itemsDropdown }}>
-                <Button className="custom-btn items-center">
+                <Button className="custom-btn borderless items-center">
                   <span className="flex gap-2 items-center space-x-1 custom">
                     <Export />
                     <span className="ax-text-black">Export</span>
@@ -77,8 +77,8 @@ export default function Product() {
                 </Button>
               </Dropdown>
               <Button
-                className={`${styles.iconBox} ${styles.button} btn-round custom-btn relative text-white`}
-                icon={<Plus className="z-10" />}
+                className={`${styles.iconBox} ${styles.button} btn-round custom-btn borderless relative `}
+                icon={<Plus className="z-10 text-white" />}
               >
                 <span
                   className={`${styles.bgPrimary} primary-bg absolute w-full h-full btn-round`}
