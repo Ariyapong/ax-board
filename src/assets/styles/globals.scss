@@ -14,14 +14,6 @@ body {
 }
 
 body {
-  /*   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
-
   background-color: #fff;
 }
 
@@ -58,10 +50,6 @@ a {
 .btn-round {
   border-radius: 14px;
 }
-
-/* .card-round {
-  border-radius: 20px;
-} */
 
 .body-ligth {
   color: $body-light;

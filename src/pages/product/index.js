@@ -1,5 +1,5 @@
 import styles from "./product.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -7,16 +7,7 @@ import Headline from "@/components/Headline";
 import Separator from "@/components/Separator";
 import Unread from "@/components/Unread";
 
-import {
-  Tabs,
-  Table,
-  Space,
-  Menu,
-  Avatar,
-  Select,
-  Button,
-  Dropdown,
-} from "antd";
+import { Tabs, Button, Dropdown } from "antd";
 import Plus from "../../../public/images/plus.svg";
 import Export from "../../../public/images/export.svg";
 import Grid from "@/assets/images/grid.svg";

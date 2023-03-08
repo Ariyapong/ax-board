@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Table, Space, Button, Input, Dropdown } from "antd";
 import mockData from "@/mock/MOCK_DATA.json";
-import { DownOutlined, SearchOutlined } from "@ant-design/icons";
-
 import Search from "@/assets/images/search.svg";
 import Filter from "@/assets/images/filter.svg";
 import MenuDown from "@/assets/images/menu-down.svg";
@@ -98,7 +96,6 @@ export default function ProductTable() {
         },
       ],
       onFilter: () => {},
-      //   sorter: (a, b) => a.age - b.age,
     },
     {
       title: <span className="ax-text-gray">PRICE</span>,
@@ -142,7 +139,6 @@ export default function ProductTable() {
                 className={`w-full h-full tb-action left-0 top-0 absolute btn-round`}
               ></span>
               <span className={`${data.status}`}>{data.status}</span>
-              {/* <DownOutlined /> */}
             </Button>
             <Button
               type="text"
@@ -185,7 +181,7 @@ export default function ProductTable() {
         <div className="col-span-1">
           <Dropdown menu={{ items: itemsDropdown }}>
             <Button className="custom-btn items-center w-full">
-              <span className="flex gap-2 items-center space-x-1 custom">
+              <span className="flex gap-2 items-center justify-evenly space-x-1 custom">
                 <span className="ax-text-black">Actions</span>
                 <Image
                   priority

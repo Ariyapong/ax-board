@@ -1,23 +1,17 @@
 import styles from "./dashboard.module.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
-import variables from "@/assets/styles/_variables.module.scss";
-import { theme, Dropdown, Button, Avatar } from "antd";
-import Headline from "@/components/Headline.js";
+import { Dropdown, Button, Avatar } from "antd";
+import Headline from "@/components/Headline";
 import More from "../../public/images/more.svg";
 import Calendar from "../../public/images/calendar.svg";
 
-import dynamic from "next/dynamic";
-
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-import { DownOutlined } from "@ant-design/icons";
-
-// data for the sparklines that appear below header area
+// data for the sparklines
 const sparklineData = [24, 35, 37, 50, 31, 36, 20, 33];
-
 const chartOption = {
   chart: {
     id: "sparkline",
@@ -126,7 +120,6 @@ const chartOption3 = {
   },
   colors: ["#F8BD26"],
 };
-
 const columnChartOption = {
   chart: {
     id: "col-chart-stat",
@@ -198,7 +191,6 @@ const columnChartOption = {
     },
   },
 };
-
 const balanceChartOption = {
   chart: {
     id: "balance",
@@ -304,7 +296,7 @@ export default function Home() {
     }, 6000);
   };
 
-  const [barData, setBarData] = useState([
+  const [barData] = useState([
     {
       name: "Profits",
       // data: randomizeArray(sparklineData),
@@ -312,7 +304,7 @@ export default function Home() {
     },
   ]);
 
-  const [colData, setColData] = useState([
+  const [colData] = useState([
     {
       name: "Income",
       data: [1900, 2600, 5300, 4900, 9000, 5600, 3900],
@@ -322,7 +314,7 @@ export default function Home() {
       data: [7400, 500, 2400, 1000, 1600, 4200, 1800],
     },
   ]);
-  const [balanceData, setBalanceData] = useState([
+  const [balanceData] = useState([
     {
       name: "Income",
       // data: [0, 75, 30, 100, 120, 250, 110, 230],
@@ -334,19 +326,6 @@ export default function Home() {
       data: [3, 33, 21, 42, 19, 12, 43],
     },
   ]);
-
-  useEffect(() => {}, []);
-
-  function btnCustom(buttons) {
-    const NewBpBtn = (
-      <div className="new-tst">
-        <div>test</div>
-      </div>
-    );
-    const NewBtn = [NewBpBtn, ...buttons];
-
-    return NewBtn;
-  }
 
   return (
     <>
@@ -414,7 +393,6 @@ export default function Home() {
                           options={chartOption}
                           series={barData}
                           type="area"
-                          // width="500"
                         />
                       </div>
                     </div>
@@ -475,7 +453,6 @@ export default function Home() {
                           options={chartOption3}
                           series={barData}
                           type="area"
-                          // width="500"
                         />
                       </div>
                     </div>
@@ -547,16 +524,7 @@ export default function Home() {
                         className={`${styles.iconBox} custom-btn`}
                         type="text"
                         icon={<More className="text-white" />}
-                      >
-                        {/* <Image
-                          className="align-middle"
-                          priority
-                          src="/images/more.svg"
-                          height={20}
-                          width={20}
-                          alt="more info"
-                        /> */}
-                      </Button>
+                      ></Button>
                     </Headline>
                     <div className=" grid grid-cols-12">
                       <div className="col-span-12">
@@ -570,9 +538,6 @@ export default function Home() {
                                 type="text"
                                 className={`body-ligth ${styles.balanceBtnBg}`}
                               >
-                                {/* <span
-                                  className={`w-full h-full absolute ${styles.btnBg}`}
-                                ></span> */}
                                 <span className="">Income</span>
                               </Button>
                               <Button
@@ -798,13 +763,6 @@ export default function Home() {
                         <div className="col-span-3 text-right">-$850</div>
                       </section>
                       <section className="grid grid-cols-12 items-center">
-                        {/* <div className="col-span-2 justify-self-center">
-                          <Avatar
-                            className={`${styles.icon} ${styles.food}`}
-                            src="/images/shopping.svg"
-                            alt="shopping"
-                          />
-                        </div> */}
                         <div className="col-span-9">
                           <div className="flex items-center gap-x-4">
                             <Avatar
@@ -866,12 +824,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* <style jsx>{`
-        .bg-1 {
-          background-color: yellow;
-        }
-      `}</style> */}
     </>
   );
 }

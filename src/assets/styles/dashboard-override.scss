@@ -3,7 +3,6 @@
 .header-ddl {
   .ant-select-selector {
     color: #fff !important;
-    // color: currentColor;
     background-color: red;
   }
   .ant-select .ant-select-arrow {
@@ -81,14 +80,8 @@
 // antd menu
 .ant-menu-item,
 .ant-menu-submenu-title {
-  // svg {
-  //   color: $body-light;
-  //   // color: currentColor;
-  // }
-
   .ant-menu-title-content {
     color: $black;
-    // color: currentColor;
   }
 }
 
@@ -126,12 +119,10 @@
   }
 
   &.ant-menu-item .ant-menu-item-icon {
-    // color: $body-light !important;
     color: currentColor;
   }
 
   .ant-menu-title-content {
-    // color: $black;
     color: currentColor;
   }
 }
@@ -141,35 +132,27 @@
 }
 
 //chart tooltip
-
 .arrow_box {
   position: relative;
-  // background: #555;
-  // border: 2px solid #000000;
   padding: 0 1rem;
   border-radius: 8px;
   color: $primary;
 }
 .arrow_box:after,
 .arrow_box:before {
-  /*   right: 0; */
   top: 100%;
-  // left: 50%;
-  /*   bottom: 100%; */
   border: solid transparent;
   content: " ";
   height: 0;
   width: 0;
   position: absolute;
   pointer-events: none;
-  // transform: translateX(-50%);
   left: 0;
   right: 0;
   margin: auto;
 }
 
 .arrow_box:after {
-  // border-color: rgba(85, 85, 85, 0);
   border-right-color: #fff;
   border-width: 10px;
   transform: rotate(-90deg);

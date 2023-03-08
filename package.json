@@ -9,10 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ant-design/cssinjs": "^1.6.1",
     "antd": "^5.2.3",
     "apexcharts": "^3.37.1",
-    "chart.js": "^4.2.1",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "next": "13.2.3",

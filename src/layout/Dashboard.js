@@ -1,21 +1,8 @@
 import styles from "./layout-dashboard.module.scss";
 import React, { useState } from "react";
-import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "next/font/google";
-// import styles from "@/assets/styles/dashboard.module.scss";
-
-import { Layout, Menu, theme, Avatar, Select, Button } from "antd";
+import { Layout, Menu, Avatar, Select, Button } from "antd";
 import Unread from "@/components/Unread";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-
-// import { useRouter } from 'next/router'
 import Link from "next/link";
 import Search from "@/assets/images/search.svg";
 import Notification from "@/assets/images/notification.svg";
@@ -33,14 +20,10 @@ import Contact from "@/assets/images/contacts.svg";
 import Dot from "@/assets/images/dot.svg";
 import MenuDown from "@/assets/images/menu-down.svg";
 
-
 const { Header, Sider, Content } = Layout;
 
 export default function Dashboard(props) {
   const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   // menu list
   const items = [
@@ -175,13 +158,6 @@ export default function Dashboard(props) {
             <div className="grid grid-cols-12 h-full items-center">
               <div className="col-span-6">
                 <div className={` flex space-x-4 items-center`}>
-                  {/* {React.createElement(
-                    collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                    {
-                      className: styles.trigger,
-                      onClick: () => setCollapsed(!collapsed),
-                    }
-                  )} */}
                   <Button
                     title=""
                     type="text"
@@ -234,7 +210,6 @@ export default function Dashboard(props) {
                     <Select
                       className="grow header-ddl"
                       defaultValue="Art Template"
-                      // style={{ width: '100%' }}
                       bordered={false}
                       options={[
                         { value: "jack", label: "Jack" },
@@ -270,14 +245,11 @@ export default function Dashboard(props) {
         <Layout className="site-layout">
           <Content
             style={{
-              //   margin: "24px 16px",
               margin: "2rem",
-              //   padding: 24,
+
               minHeight: 280,
-              //   background: colorBgContainer,
             }}
           >
-            {/* <span className="text-red-600 font-bold">Content</span> */}
             {props.children}
           </Content>
         </Layout>
