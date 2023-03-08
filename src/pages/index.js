@@ -558,7 +558,7 @@ export default function Home() {
                               <span className="opacity-80">Income:</span> $500
                             </div>
                           </div>
-                          <div className="col-span-4">
+                          <div className="col-span-5">
                             <div className="px-4 text-white">
                               <span className="opacity-80">Spending:</span> $200
                             </div>
